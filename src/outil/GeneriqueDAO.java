@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import org.postgresql.util.PGInterval;
 import org.w3c.dom.Document;
 
 public class GeneriqueDAO {
@@ -1012,7 +1013,6 @@ public class GeneriqueDAO {
             prs.executeUpdate();
             refreshCache(nomtable);
         } catch (Exception ex) {
-            con.rollback();
             throw ex;
         } finally {
             if (prs != null) {
@@ -1155,6 +1155,9 @@ public class GeneriqueDAO {
             case "java.lang.Integer":
                 ps.setInt(nbcolonne, (int) g);
                 break;
+            case "org.postgresql.util.PGInterval":
+                ps.setObject(nbcolonne, (PGInterval) g);
+                break;
             case "java.lang.String":
                 ps.setString(nbcolonne, g.toString());
                 break;
@@ -1295,6 +1298,9 @@ public class GeneriqueDAO {
             case "int":
             case "java.lang.Integer":
                 m.invoke(obj, rs.getInt(colonne));
+                break;
+            case "org.postgresql.util.PGInterval":
+                m.invoke(obj, (PGInterval) rs.getObject(colonne));
                 break;
             case "java.sql.Date":
             case "java.util.Date":
