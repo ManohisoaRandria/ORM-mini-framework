@@ -11,4 +11,6 @@ we provide you the postgreSQL driver in the root folder of the project
 src/outil/GeneriqueDAO.java
 ```
 ## executable
-just add ``generalise.jar`` in the dist folder in your project 
+just add ``generalise.jar`` in your project
+
+it is located in the dist folder
